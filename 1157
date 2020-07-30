@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+int main(void) {
+	char word[1000001];
+	int count[27] = { 0 };
+	int max = 0, max_idx = 0, c = 0;
+
+	scanf("%s", word);
+
+	int length = strlen(word); 
+
+	//알파벳 갯수를 각각 알파벳 배열(count[], count[0] = A의 갯수, count[1] = B의 개수 ... )의 해당하는 인덱스에 넣기 
+	for (int i = 0; i < length; i++) {
+		if (word[i] >= 'a' && word[i] <= 'z')
+			count[word[i] - 'a']++;
+		else
+			count[word[i] - 'A']++;
+	}
+	for (int j = 0; j < 26; j++) {
+		if (max < count[j]) {
+			max = count[j];
+			max_idx = j;
+			c = 0;
+		}
+		else if (max == count[j]) {
+			c++;
+		}
+	}
+	if (c > 0)
+		printf("?");
+	else
+		printf("%c", max_idx + 'A');
+
+	return 0;
+}
